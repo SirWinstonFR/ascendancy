@@ -119,6 +119,11 @@ namespace TcgEngine
                     return false;   //Slot already occupied
                 if (Slot.GetP(card.player_id) != slot.p)
                     return false; //Cant play on opponent side
+				if(card.CardData.type == CardType.Artifact && (slot.x != 8 && slot.x != 9))
+					return false;
+				if(card.CardData.type == CardType.Character && (slot.x < 1 || slot.x > 7))
+					return false;
+					
                 return true;
             }
             if (card.CardData.IsEquipment())
