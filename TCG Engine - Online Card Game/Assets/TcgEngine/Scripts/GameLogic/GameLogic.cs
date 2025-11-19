@@ -836,7 +836,7 @@ namespace TcgEngine.Gameplay
             //Lifesteal
             Player aplayer = game_data.GetPlayer(attacker.player_id);
             if (attacker.HasStatus(StatusType.LifeSteal))
-                aplayer.hp += value;
+                aplayer.hp = Mathf.Clamp(player.hp + attacker.attack, 0, player.hp_max);
 
             onPlayerDamaged?.Invoke(target, value);
         }
@@ -924,7 +924,7 @@ namespace TcgEngine.Gameplay
             //Lifesteal
             Player player = game_data.GetPlayer(attacker.player_id);
             if (!spell_damage && attacker.HasStatus(StatusType.LifeSteal))
-                player.hp += damage_max;
+                player.hp = Mathf.Clamp(player.hp + attacker.attack, 0, player.hp_max);
 
             //Remove sleep on damage
             target.RemoveStatus(StatusType.Sleep);
